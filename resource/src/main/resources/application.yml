@@ -1,0 +1,11 @@
+#配置服务端口号
+server:
+  port: 8111
+
+#使用auth-server进行认证授权，在它的配置文件指定用户信息在auth-server的地址即可：
+security:
+  oauth2:
+    resource:
+      id: resource-service
+      user-info-uri: http://localhost:8080/user
+      prefer-token-info: false

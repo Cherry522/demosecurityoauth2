@@ -1,0 +1,21 @@
+Redis:
+  image: redis:latest
+  ports:
+    - "6379:6379"
+  volumes:
+    - /tmp/docker/redis:/var/lib/redis:Z
+  restart: always
+
+#PostgreSQL:
+#  restart: always
+#  image: sameersbn/postgresql:9.6-2
+#  ports:
+#    - "5432:5432"
+#  environment:
+#    - DEBUG=false
+#
+#    - DB_USER=wang
+#    - DB_PASS=yunfei
+#    - DB_NAME=order
+#  volumes:
+#    - /tmp/docker/postgresql:/var/lib/postgresql:Z

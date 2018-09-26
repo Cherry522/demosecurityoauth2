@@ -1,0 +1,78 @@
+spring:
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
+  application:
+      name: auth-server
+  #redis
+  redis:
+    # Redis服务器地址
+    host: localhost
+    # Redis数据库索引（默认为0）
+    database: 0
+    # Redis服务器连接端口
+    port: 6379
+    # Redis服务器连接密码（默认为空）
+    password: ''
+    # 连接池最大连接数（使用负值表示没有限制）
+    pool.max-active: 8
+    # 连接池最大阻塞等待时间（使用负值表示没有限制）
+    pool.max-wait: -1
+    # 连接池中的最大空闲连接
+    pool.max-idle: 8
+    # 连接池中的最小空闲连接
+    pool.min-idle: 0
+    # 连接超时时间（毫秒）
+    timeout: 0
+server:
+  port: 8080
+
+##datasource
+#spring:
+#  datasource:
+#    driver-class-name: com.mysql.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/demo_security_oauth?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false
+#    #url=jdbc:mysql://10.61.104.16:3306/uec_bio_cloud?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false
+#    username: root
+#    password: 123456
+#    #数据库连接池常用的三种实现方式：HikariCP，DBCP(生产环境不推荐)，DBCP2，c3p0，Druid
+#    #BoneCP 是一个高性能的开源java数据库连接池实现库。它的设计初衷就是为了提高数据库连接池的性能，根据某些测试数据发现，BoneCP是最快的连接池。BoneCP很小，只有四十几K（运行时需要slf4j和guava的支持，这二者加起来就不小了），而相比之下 C3P0 要六百多K。
+#    #配置数据库连接池的方式
+#    #type:
+#    #因为项目用的是spring-boot-starter-data-jpa，这个默认用tomcat-jdbc，所以咱们暂时用tomcat-jdbc的数据库连接池，以后会改成BoneCP
+#    #type: tomcat-jdbc
+#    #最大等待时间，单位ms，10秒
+#    max-wait: 10000
+#    #最大连接数据库连接数，设置为0时，表示没有限制；
+#    max-active: 50
+#    #初始化连接数据库连接数
+#    initialSize: 1
+#    # 指明是否在从池中取出连接前进行检验,如果检验失败,则从池中去除连接并尝试取出另一个. 注意: 设置为true后如果要生效,validationQuery参数必须设置为非空字符串
+#    test-on-borrow: true
+#    #SQL查询,用来验证从连接池取出的连接,在将连接返回给调用者之前.如果指定,则查询必须是一个SQL SELECT并且必须返回至少一行记录
+#    validation-query: SELECT 1;
+
+##jpa
+##hibernate中的'hibernate.hbm2ddl.auto'参数配置，自动生成表结构
+##create：表示启动的时候先drop，再create(会创建表结构)
+##create-drop: 也表示创建，只不过再系统关闭前执行一下drop
+##update: 这个操作启动的时候会去检查schema是否一致，如果不一致会做scheme更新(不会创建表结构)
+##validate: 启动时验证现有schema与你配置的hibernate是否一致，如果不一致就抛出异常，并不做更新
+##none：不采取任何措施
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#    #是否在控制台打印sql语句
+#    show-sql: true
+#    #设置engine=InnoDB；缺省值为：engine=MyISAM
+#    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+#    #当我们要获取的数据的时候，但是session已经关闭了
+#    #解决报错：could not initialize proxy - no Session
+#    open-in-view: true
+
+
+
+#将我们的资源拦截的过滤器运行顺序放到第3个执行，也就是在oauth2的认证服务器后面执行
+security:
+  oauth2:
+    resource:
+      filter-order: 3
